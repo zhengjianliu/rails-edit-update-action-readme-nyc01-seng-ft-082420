@@ -7,17 +7,25 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
   end
 
-  def new
+  def new  ## the new action is  simply renders the new form.
     @article = Article.new
   end
 
-  def create
+  def create  ## the create action is inserting the form data to DB.
     @article = Article.new
     @article.title = params[:title]
     @article.description = params[:description]
     @article.save
     redirect_to article_path(@article)
   end
-
   # add edit and update methods here
+  def edit
+    @article = Article.find(params[:id])
+  end
+
+  def update
+    @article = Article.find(params[:id])
+    @article.update(title: params[:article][:title], description: params[:article][:description])
+    redirect_to article_path(@article)
+  end
 end
